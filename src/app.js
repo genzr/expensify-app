@@ -11,11 +11,6 @@ import './styles/styles.scss'
 
 const store = configureStore()
 
-// addExpense -> water bill
-store.dispatch(addExpense({ description: 'Water Bill', amount:200 }))
-store.dispatch(addExpense({ description: 'Gas Bill', amount:2000, createdAt: 1000 }))
-store.dispatch(addExpense({ description: 'Rent', amount:109500 }))
-
 const state = store.getState()
 
 // use getVisibleExpenses function and print visible ones to screen
