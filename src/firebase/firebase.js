@@ -11,31 +11,34 @@ const firebaseConfig = {
   }
 
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-  const database = firebase.database()
+const database = firebase.database()
 
-  database.ref().set({
-      name: 'Gennaro Oriolo',
-      age: 31,
-      friendly: true,
-      location: {
-          city: 'Brisbane',
-          country: 'Australia'
-      }
-  }).then(() => {
-      console.log('Saved data to database')
-  }).catch((e) => {
-    console.log('This failed', e)
-  })
+// child_removed
+database.ref('expenses').on('child_removed', (snapshot) => {
+  console.log(snapshot.key, snapshot.val())
+})
 
-database.ref('friendly').set(null)
+// child_changed
+database.ref('expenses').on('child_changed', (snapshot) => {
+  console.log(snapshot.key, snapshot.val())
+})
 
-// database.ref('friendly')
-//     .remove()
-//     .then(() => {
-//         console.log('Removed friendly from database')
+// child_added
+database.ref('expenses').on('child_added', (snapshot) => {
+  console.log(snapshot.key, snapshot.val())
+})
+
+
+// database.ref('expenses').on('value', (snapshot) => {
+//   const expensesArray = []
+  
+//   snapshot.forEach((childSnapshot) => {
+//     expensesArray.push({
+//       id: childSnapshot.id,
+//       ...childSnapshot.val()
 //     })
-//     .catch((e) => {
-//         console.log('Failed to remove friendly from database', e)
-//     })
+//   })
+//   console.log(expensesArray)
+// })
