@@ -7,6 +7,7 @@ import 'normalize.css/normalize.css'
 import './styles/styles.scss'
 import './firebase/firebase'
 import { startSetExpenses } from './actions/expenses'
+import { firebase } from './firebase/firebase'
 
 const store = configureStore()
 
@@ -18,8 +19,14 @@ const jsx = (
 
 ReactDOM.render(<p>Loading...</p>, document.getElementById('app'))
 
-// console.log(startSetExpenses())
-
 store.dispatch(startSetExpenses()).then(() => {
     ReactDOM.render(jsx, document.getElementById('app'))
+})
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        console.log('Logged in')
+    } else {
+        console.log('Logged out')
+    }
 })
